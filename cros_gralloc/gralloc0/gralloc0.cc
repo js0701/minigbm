@@ -28,6 +28,7 @@ enum {
 	GRALLOC_DRM_GET_FORMAT,
 	GRALLOC_DRM_GET_DIMENSIONS,
 	GRALLOC_DRM_GET_BACKING_STORE,
+        GRALLOC_DRM_GET_DRM_FD,
 };
 // clang-format on
 
@@ -224,12 +225,14 @@ static int gralloc0_perform(struct gralloc_module_t const *module, int op, ...)
 	buffer_handle_t handle;
 	uint32_t *out_width, *out_height, *out_stride;
 	auto mod = (struct gralloc0_module *)module;
+        int *fd;
 
 	switch (op) {
 	case GRALLOC_DRM_GET_STRIDE:
 	case GRALLOC_DRM_GET_FORMAT:
 	case GRALLOC_DRM_GET_DIMENSIONS:
 	case GRALLOC_DRM_GET_BACKING_STORE:
+        case GRALLOC_DRM_GET_DRM_FD:
 		break;
 	default:
 		return CROS_GRALLOC_ERROR_UNSUPPORTED;
@@ -264,6 +267,10 @@ static int gralloc0_perform(struct gralloc_module_t const *module, int op, ...)
 		out_store = va_arg(args, uint64_t *);
 		ret = mod->driver->get_backing_store(handle, out_store);
 		break;
+        case GRALLOC_DRM_GET_DRM_FD:
+                fd = va_arg(args, int *);
+                *fd = hnd->fds[0];
+                break;
 	default:
 		ret = CROS_GRALLOC_ERROR_UNSUPPORTED;
 	}
