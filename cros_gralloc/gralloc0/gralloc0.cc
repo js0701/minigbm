@@ -104,8 +104,8 @@ static int gralloc0_alloc(alloc_device_t *dev, int w, int h, int format, int usa
 
 	if (!supported) {
 		cros_gralloc_error("Unsupported combination -- HAL format: %u, HAL flags: %u, "
-				   "drv_format: %4.4s, drv_flags: %llu",
-				   format, usage, reinterpret_cast<char *>(descriptor.drm_format),
+				   "drv_format: %u, drv_flags: %llu",
+				   format, usage, descriptor.drm_format,
 				   static_cast<unsigned long long>(descriptor.drv_usage));
 		return CROS_GRALLOC_ERROR_UNSUPPORTED;
 	}
