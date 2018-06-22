@@ -71,7 +71,7 @@ uint64_t cros_gralloc1_convert_usage(uint64_t producer_flags, uint64_t consumer_
 		usage |= BO_USE_RENDERING;
 	if (producer_flags & GRALLOC1_PRODUCER_USAGE_VIDEO_DECODER)
 		/* Video wants to use display hardware, but can defer to OpenGL. */
-		usage |= BO_USE_SCANOUT | BO_USE_RENDERING;
+		usage |= BO_USE_SCANOUT | BO_USE_TEXTURE;
 	if (producer_flags & GRALLOC1_PRODUCER_USAGE_PROTECTED)
 		usage |= BO_USE_PROTECTED;
 	if (producer_flags & GRALLOC1_PRODUCER_USAGE_CAMERA)
